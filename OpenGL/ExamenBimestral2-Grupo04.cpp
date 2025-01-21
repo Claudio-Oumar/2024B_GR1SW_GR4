@@ -21,8 +21,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1200;
+const unsigned int SCR_HEIGHT = 1000;
 
 // camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -85,10 +85,11 @@ int main()
 
     // load models
     // -----------
-    Model ourModel1("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model01/model01.obj");
-    Model ourModel2("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj");
-    Model ourModel3("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model04/model04.obj");
-    Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj"); 
+     Model ourModel1("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model01/model01.obj");
+     Model ourModel2("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj");
+     Model ourModel3("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model04/model04.obj");
+	 Model ourModel5("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model05/model05.obj");
+     Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj"); 
 
 
     // draw in wireframe
@@ -132,6 +133,7 @@ int main()
         glm::mat4 model2 = glm::mat4(1.0f);
         model2 = glm::translate(model2, glm::vec3(5.0f, 6.0f, 0.0f)); // translate it to the right
         model2 = glm::scale(model2, glm::vec3(0.3f, 0.3f, 0.3f));  // scale it down
+        model2 = glm::rotate(model2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         ourShader.setMat4("model", model2);
         ourModel2.Draw(ourShader);
 
@@ -145,9 +147,18 @@ int main()
         // render the fourth model
         glm::mat4 model4 = glm::mat4(1.0f);
         model4 = glm::translate(model4, glm::vec3(-5.0f, 0.0f, 8.0f)); // translate it to a new position
+        model5 = glm::rotate(model5, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model4 = glm::scale(model4, glm::vec3(0.1f, 0.1f, 0.1f));  // scale it down
         ourShader.setMat4("model", model4);
         ourModel4.Draw(ourShader);
+
+        // render the fifth model
+        glm::mat4 model5 = glm::mat4(1.0f);
+        model5 = glm::translate(model5, glm::vec3(10.0f, 0.0f, 0.0f)); // translate it to a new posit   ion
+        model5 = glm::rotate(model5, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // rotate it 90 degrees around the Y axis
+        model5 = glm::scale(model5, glm::vec3(0.9f, 0.9f, 0.9f));  // scale it down
+        ourShader.setMat4("model", model5);
+        ourModel5.Draw(ourShader);
 
 
 
