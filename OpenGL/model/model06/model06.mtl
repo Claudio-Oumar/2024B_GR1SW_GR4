@@ -1,0 +1,79 @@
+# Blender 4.3.2 MTL File: 'None'
+# www.blender.org
+
+newmtl ashes
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+illum 2
+map_Kd ashes_baseColor.png
+map_Ke ashes_emissive.jpeg
+map_d ashes_baseColor.png
+map_Bump -bm 1.000000 ashes_normal.png
+
+newmtl blade
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd blade_baseColor.jpeg
+map_Ke blade_emissive.jpeg
+map_Bump -bm 1.000000 blade_normal.jpeg
+
+newmtl ground
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd ground_baseColor.jpeg
+map_Bump -bm 1.000000 ground_normal.jpeg
+
+newmtl handle
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd handle_baseColor.jpeg
+map_Ke handle_emissive.jpeg
+map_Bump -bm 1.000000 handle_normal.jpeg
+
+newmtl skull01
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd skull01_baseColor.jpeg
+map_Ke skull01_emissive.jpeg
+map_Bump -bm 1.000000 skull01_normal.png
+
+newmtl skull02
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd skull02_baseColor.jpeg
+map_Ke skull02_emissive.jpeg
+map_Bump -bm 1.000000 skull02_normal.png
+
+newmtl wall
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd wall_baseColor.jpeg
+map_Bump -bm 1.000000 wall_normal.png

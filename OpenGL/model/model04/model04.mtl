@@ -1,0 +1,76 @@
+# Blender 4.3.2 MTL File: 'None'
+# www.blender.org
+
+newmtl coals
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd coals_baseColor.jpeg
+map_Ke coals_baseColor.jpeg
+map_Bump -bm 1.000000 coals_normal.jpeg
+
+newmtl flame
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 1.000000 0.487587 0.000000
+Ni 1.500000
+d 0.396921
+illum 9
+
+newmtl holders
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd holders_baseColor.jpeg
+
+newmtl metal
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd holders_baseColor.jpeg
+map_Bump -bm 1.000000 metal_normal.jpeg
+
+newmtl rope
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd rope_baseColor.jpeg
+map_Bump -bm 1.000000 rope_normal.jpeg
+
+newmtl wall-floor
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd wall-floor_baseColor.jpeg
+map_Bump -bm 1.000000 wall-floor_normal.jpeg
+
+newmtl wood
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd wood_baseColor.jpeg

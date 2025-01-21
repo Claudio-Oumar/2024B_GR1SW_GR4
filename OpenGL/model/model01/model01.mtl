@@ -1,0 +1,57 @@
+# Blender 4.3.2 MTL File: 'None'
+# www.blender.org
+
+newmtl Glass
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Glass_baseColor.png
+map_Bump -bm 1.000000 Glass_normal.png
+
+newmtl Main_church
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Main_church_baseColor.png
+map_Bump -bm 1.000000 Main_church_normal.png
+
+newmtl Roof_beam
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Roof_beam_baseColor.png
+map_Bump -bm 1.000000 Roof_beam_normal.png
+
+newmtl Tower_roof
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Tower_roof_baseColor.png
+map_Bump -bm 1.000000 Tower_roof_normal.png
+
+newmtl Window_frames
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Window_frames_baseColor.png
+map_Bump -bm 1.000000 Window_frames_normal.png
