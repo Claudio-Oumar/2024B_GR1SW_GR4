@@ -89,7 +89,8 @@ int main()
      Model ourModel2("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj");
      Model ourModel3("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model04/model04.obj");
 	 Model ourModel5("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model05/model05.obj");
-     Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj"); 
+     Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj");
+     Model ourModel6("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model07/model07.obj");
 
 
     // draw in wireframe
@@ -159,6 +160,28 @@ int main()
         model5 = glm::scale(model5, glm::vec3(0.9f, 0.9f, 0.9f));  // scale it down
         ourShader.setMat4("model", model5);
         ourModel5.Draw(ourShader);
+
+
+	// render the sixth model in a grid pattern
+	int gridSize = 5; // Define the size of the grid
+	float modelSize = 5.0f; // Define the size of each model
+	float spacing = modelSize; // Define the spacing between models
+
+	// Calculate the initial position to center the grid
+	float startX = -(gridSize - 1) * spacing / 2.0f;
+	float startZ = -(gridSize - 1) * spacing / 2.0f;
+	float startY = -0.05f; // Position it below the other models
+
+	for (int i = 0; i < gridSize; ++i) {
+    	for (int j = 0; j < gridSize; ++j) {
+        glm::mat4 model6 = glm::mat4(1.0f);
+        model6 = glm::translate(model6, glm::vec3(startX + i * spacing, startY, startZ + j * spacing)); // translate it to a new position
+        model6 = glm::scale(model6, glm::vec3(3.0f, 3.0f, 3.0f));  // scale it to its original size
+        ourShader.setMat4("model", model6);
+        ourModel6.Draw(ourShader);
+    		}
+	}
+	    
 
 
 
