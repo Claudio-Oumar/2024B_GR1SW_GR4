@@ -148,7 +148,7 @@ int main()
         // render the fourth model
         glm::mat4 model4 = glm::mat4(1.0f);
         model4 = glm::translate(model4, glm::vec3(-5.0f, 0.0f, 8.0f)); // translate it to a new position
-        model5 = glm::rotate(model5, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model4 = glm::rotate(model4, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model4 = glm::scale(model4, glm::vec3(0.1f, 0.1f, 0.1f));  // scale it down
         ourShader.setMat4("model", model4);
         ourModel4.Draw(ourShader);
