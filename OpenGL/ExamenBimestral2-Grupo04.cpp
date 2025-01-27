@@ -85,19 +85,118 @@ int main()
 
     // load models
     // -----------
-     Model ourModel1("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model01/model01.obj");
-     Model ourModel2("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj");
-     Model ourModel3("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model04/model04.obj");
-	 Model ourModel5("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model05/model05.obj");
-     Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj");
-     Model ourModel6("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model07/model07.obj");
-
+    Model ourModel1("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model01/model01.obj");
+    Model ourModel2("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj");
+    Model ourModel3("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model04/model04.obj");
+    Model ourModel5("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model05/model05.obj");
+    Model ourModel4("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj");
+    Model ourModel6("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model07/model07.obj");
+    Model ourModel10("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model10/model10.obj");
+    Model ourModel11("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model11/model11.obj");
 
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     camera.MovementSpeed = 10; //Optional. Modify the speed of the camera
 
-    
+    float cubeVertices[] = {
+        // positions          // texture coords
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+    };
+
+    unsigned int cubeVAO, cubeVBO;
+    glGenVertexArrays(1, &cubeVAO);
+    glGenBuffers(1, &cubeVBO);
+
+    glBindVertexArray(cubeVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    // load and create the cube texture
+    unsigned int cubeTexture;
+    glGenTextures(1, &cubeTexture);
+    glBindTexture(GL_TEXTURE_2D, cubeTexture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    // Después de cargar la textura, añade más información de debug
+    unsigned char* data = stbi_load("C:/Users/josel/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/textures/nocheestrellada.jpg", &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        std::cout << "Texture loaded successfully:" << std::endl;
+        std::cout << "Width: " << width << std::endl;
+        std::cout << "Height: " << height << std::endl;
+        std::cout << "Channels: " << nrChannels << std::endl;
+
+        if (nrChannels == 3)
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        else if (nrChannels == 4)
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture at path: textures/dark.jpg" << std::endl;
+        std::cout << "Error: " << stbi_failure_reason() << std::endl;
+    }
+    stbi_image_free(data);
+
+    // 3. Pasar el índice de la textura al shader (0 para GL_TEXTURE0)
+    ourShader.use();  // Asegúrate de que el shader esté activo
+    ourShader.setInt("texture_diffuse1", 0);  // Usamos la textura en la unidad 0
+
     // render loop
     while (!glfwWindowShouldClose(window))
 
@@ -113,6 +212,9 @@ int main()
         // render
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, cubeTexture);
 
         // don't forget to enable shader before setting uniforms
         ourShader.use();
@@ -161,28 +263,51 @@ int main()
         ourShader.setMat4("model", model5);
         ourModel5.Draw(ourShader);
 
+        glm::mat4 model10 = glm::mat4(1.0f);
+        model10 = glm::translate(model10, glm::vec3(15.0f, 20.0f, 10.0f)); // translate it to a new posit   ion
+        model10 = glm::rotate(model10, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // rotate it 90 degrees around the Y axis
+        model10 = glm::scale(model10, glm::vec3(0.1f, 0.1f, 0.1f));  // scale it down
+        ourShader.setMat4("model", model10);
+        ourModel10.Draw(ourShader);
 
-	// render the sixth model in a grid pattern
-	int gridSize = 5; // Define the size of the grid
-	float modelSize = 5.0f; // Define the size of each model
-	float spacing = modelSize; // Define the spacing between models
+        glm::mat4 model11 = glm::mat4(1.0f);
+        model11 = glm::translate(model11, glm::vec3(-5.0f, 20.0f, 10.0f)); // translate it to a new posit   ion
+        model11 = glm::rotate(model11, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // rotate it 90 degrees around the Y axis
+        model11 = glm::scale(model11, glm::vec3(1.5f, 1.5f, 1.5f));  // scale it down
+        ourShader.setMat4("model", model11);
+        ourModel11.Draw(ourShader);
+       
 
-	// Calculate the initial position to center the grid
-	float startX = -(gridSize - 1) * spacing / 2.0f;
-	float startZ = -(gridSize - 1) * spacing / 2.0f;
-	float startY = -0.05f; // Position it below the other models
+        // render the sixth model in a grid pattern
+        int gridSize = 5; // Define the size of the grid
+        float modelSize = 5.0f; // Define the size of each model
+        float spacing = modelSize; // Define the spacing between models
 
-	for (int i = 0; i < gridSize; ++i) {
-    	for (int j = 0; j < gridSize; ++j) {
-        glm::mat4 model6 = glm::mat4(1.0f);
-        model6 = glm::translate(model6, glm::vec3(startX + i * spacing, startY, startZ + j * spacing)); // translate it to a new position
-        model6 = glm::scale(model6, glm::vec3(3.0f, 3.0f, 3.0f));  // scale it to its original size
-        ourShader.setMat4("model", model6);
-        ourModel6.Draw(ourShader);
-    		}
-	}
-	    
+        // Calculate the initial position to center the grid
+        float startX = -(gridSize - 1) * spacing / 2.0f;
+        float startZ = -(gridSize - 1) * spacing / 2.0f;
+        float startY = -0.05f; // Position it below the other models
 
+        for (int i = 0; i < gridSize; ++i) {
+            for (int j = 0; j < gridSize; ++j) {
+                glm::mat4 model6 = glm::mat4(1.0f);
+                model6 = glm::translate(model6, glm::vec3(startX + i * spacing, startY, startZ + j * spacing)); // translate it to a new position
+                model6 = glm::scale(model6, glm::vec3(3.0f, 3.0f, 3.0f));  // scale it to its original size
+                ourShader.setMat4("model", model6);
+                ourModel6.Draw(ourShader);
+            }
+        }
+
+
+        glm::mat4 cubeModel = glm::mat4(1.0f);
+        cubeModel = glm::translate(cubeModel, glm::vec3(10.0f, 20.0f, 30.0f)); // Position the cube
+        cubeModel = glm::scale(cubeModel, glm::vec3(100.0f)); // Scale the cube as requested
+        ourShader.setMat4("model", cubeModel);
+
+        // Bind the cube VAO and draw
+        glBindVertexArray(cubeVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
 
 
 
