@@ -1,0 +1,54 @@
+# Blender 4.3.2 MTL File: 'None'
+# www.blender.org
+
+newmtl Demon_Base_Animation_lambert2SG
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Demon_Base_Animationlambert2_baseColor.jpeg
+
+newmtl Demon_Base_Animationlambert2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Demon_Base_Animationlambert2_baseColor.jpeg
+map_Ke Demon_Base_Animationlambert2_emissive.png
+map_Bump -bm 1.000000 Demon_Base_Animationlambert2_normal.png
+
+newmtl Material_25
+Ns 817.494324
+Ka 1.000000 1.000000 1.000000
+Kd 0.133333 0.007843 0.007843
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Socle__0
+Ns 159.999985
+Ka 1.000000 1.000000 1.000000
+Kd 0.001027 0.000873 0.000873
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl lambert1
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd lambert1_baseColor.jpeg
+map_Bump -bm 1.000000 lambert1_normal.png
