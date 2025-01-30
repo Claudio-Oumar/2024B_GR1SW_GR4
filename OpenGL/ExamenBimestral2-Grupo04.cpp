@@ -322,16 +322,20 @@ int main()
         ourShader.setMat4("model", model1);
         ourModel1.Draw(ourShader);
 
-        // render the second model
-		for (unsigned int i = 5; i < 12; i++)
-		{
-			glm::mat4 model2 = glm::mat4(1.0f);
-			model2 = glm::translate(model2, cubePositions[i]);
-            model2 = glm::scale(model2, glm::vec3(0.8f, 0.8f, 0.8f));
-            model2 = glm::rotate(model2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-            ourShader.setMat4("model", model2);
-            ourModel2.Draw(ourShader);
-		}
+        // Render the second model with floating effect in a loop
+	for (unsigned int i = 5; i < 12; i++)
+	{
+    		glm::mat4 model2 = glm::mat4(1.0f);
+    		float time = glfwGetTime();
+    		float floatOffset = sin(time + i) * 5.0f; // Offset based on time and model index
+    		glm::vec3 newPosition = cubePositions[i];
+    		newPosition.y += floatOffset;  // Apply the sinusoidal offset to the Y position
+    		model2 = glm::translate(model2, newPosition);  // Translate to new position with float effect
+   		model2 = glm::scale(model2, glm::vec3(0.8f, 0.8f, 0.8f));  // Scale the model
+    		model2 = glm::rotate(model2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));  // Rotate around Y axis
+    		ourShader.setMat4("model", model2);  // Set the model matrix
+    		ourModel2.Draw(ourShader);  // Draw the model
+	}
        
 
         // render the third model
