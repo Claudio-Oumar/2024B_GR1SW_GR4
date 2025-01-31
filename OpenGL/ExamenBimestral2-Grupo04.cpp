@@ -147,7 +147,7 @@ int main()
         -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
     };
-
+    //Modelos
     glm::vec3 cubePositions[] = {
         // x ,   y , z
         // Posición cubo 
@@ -167,7 +167,7 @@ int main()
         glm::vec3(-9.0f, 22.0f, -1.0f),
         glm::vec3(-12.0f, 25.0f, -4.0f),
 
-        // Antorcha
+        // muro
         glm::vec3(-8.0f, 2.0f, -20.0f),
         glm::vec3(0.0f, 2.0f, -20.0f),
         glm::vec3(8.0f, 2.0f, -20.0f),
@@ -186,16 +186,33 @@ int main()
         glm::vec3(32.0f, 2.0f, 33.0f),
         glm::vec3(40.0f, 2.0f, 33.0f),
         glm::vec3(48.0f, 2.0f, 33.0f),
-        glm::vec3(56.0f, 2.0f, 33.0f)
+        glm::vec3(56.0f, 2.0f, 33.0f),
+        
+        //FAROLA
+		glm::vec3(4.0f, 0.0f, 10.0f),
+		glm::vec3(12.0f, 0.0f, 10.0f),
+		glm::vec3(20.0f, 0.0f, 10.0f),
+		glm::vec3(28.0f, 0.0f, 10.0f),
+		glm::vec3(4.0f, 0.0f, -10.0f),
+		glm::vec3(12.0f, 0.0f, -10.0f),
+		glm::vec3(20.0f, 0.0f, -10.0f),
+		glm::vec3(28.0f, 0.0f, -10.0f)
+
+
     };
 
 
-    // Posicion de las luces en la escena
+    // Posicion de las luces en la escena (BLANCA)
     glm::vec3 pointLightPositions[] = {
-        glm::vec3(0.7f,  1.2f,  2.0f), // Posición de una luz
-        glm::vec3(2.3f, 1.3f, -4.0f), 
-        glm::vec3(-4.0f,  1.0f, -12.0f),
-        glm::vec3(0.0f,  1.0f, -3.0f)
+        glm::vec3(4.0f, 5.5f, 8.15f),
+        glm::vec3(12.0f, 5.5f, 8.15f),
+		glm::vec3(20.0f, 5.5f, 8.15f),
+		glm::vec3(28.0f, 5.5f, 8.15f),
+        glm::vec3(4.0f, 5.5f, -8.15f),
+        glm::vec3(12.0f, 5.5f, -8.15f),
+		glm::vec3(20.0f, 5.5f, -8.15f),
+		glm::vec3(28.0f, 5.5f, -8.15f)
+
     };
 
     // first, configure the cube's VAO (and VBO)
@@ -215,12 +232,11 @@ int main()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
+    // second, configure the light's VAO (ILUMINACION)
     unsigned int lightCubeVAO;
     glGenVertexArrays(1, &lightCubeVAO);
     glBindVertexArray(lightCubeVAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // note that we update the lamp's position attribute's stride to reflect the updated buffer data
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
@@ -231,7 +247,7 @@ int main()
     // shader configuration
     // --------------------
     lightingShader.use();
-    lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.diffuse", 0); 
     lightingShader.setInt("material.specular", 1);
     lightingShader.setInt("material.emission", 2);
 
@@ -306,6 +322,7 @@ int main()
         lightingShader.setFloat("pointLights[3].constant", 1.0f);
         lightingShader.setFloat("pointLights[3].linear", 0.09);
         lightingShader.setFloat("pointLights[3].quadratic", 0.032);
+
         // spotLight linterna con un cono de luz dirigido.
         lightingShader.setVec3("spotLight.position", camera.Position);
         lightingShader.setVec3("spotLight.direction", camera.Front);
@@ -325,23 +342,23 @@ int main()
         ourShader.setMat4("model", model1);
         ourModel1.Draw(ourShader);
 
-        // Render the second model with floating effect in a loop
+        // Render the second  DIABLO AIRE
         for (unsigned int i = 6; i < 13; i++)
         {
             glm::mat4 model2 = glm::mat4(1.0f);
             float time = glfwGetTime();
-            float floatOffset = sin(time + i) * 5.0f; 
+            float floatOffset = sin(time + i) * 5.0f;
             glm::vec3 newPosition = cubePositions[i];
-            newPosition.y += floatOffset;  
-            model2 = glm::translate(model2, newPosition);  
-            model2 = glm::scale(model2, glm::vec3(0.8f, 0.8f, 0.8f)); 
-            model2 = glm::rotate(model2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));  
-            ourShader.setMat4("model", model2); 
-            ourModel2.Draw(ourShader);  
+            newPosition.y += floatOffset;
+            model2 = glm::translate(model2, newPosition);
+            model2 = glm::scale(model2, glm::vec3(0.8f, 0.8f, 0.8f));
+            model2 = glm::rotate(model2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            ourShader.setMat4("model", model2);
+            ourModel2.Draw(ourShader);
         }
 
-        // render the third model
-        for (unsigned int i = 13; i < 30; i++)
+        // render the third model // MOROS
+        for (unsigned int i = 13; i < 31; i++)
         {
             glm::mat4 model3 = glm::mat4(1.0f);
             model3 = glm::translate(model3, cubePositions[i]);
@@ -384,8 +401,8 @@ int main()
 
         // render the ninth 
         glm::mat4 model9 = glm::mat4(1.0f);
-        model9 = glm::translate(model9, glm::vec3(-40.0f, -80.0f, 0.0f)); 
-        model9 = glm::rotate(model9, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); 
+        model9 = glm::translate(model9, glm::vec3(-40.0f, -80.0f, 0.0f));
+        model9 = glm::rotate(model9, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         float scale = 29.0f + 11.0f * sin(glfwGetTime()); // dynamic scaling between 18 and 40
         model9 = glm::scale(model9, glm::vec3(scale, scale, scale));
         ourShader.setMat4("model", model9);
@@ -412,13 +429,26 @@ int main()
 
             }
         }
-		// render the tenth model
-		glm::mat4 model10 = glm::mat4(1.0f);
-		model10 = glm::translate(model10, glm::vec3(0.0f, 0.0f, 0.0f));
-        model10 = glm::rotate(model10, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model10 = glm::scale(model10, glm::vec3(0.01f, 0.01f, 0.01f));
-		ourShader.setMat4("model", model10);
-		ourModel10.Draw(ourShader);
+        // render the tenth model
+        for (unsigned int i = 31; i < 35; i++)
+        {
+            glm::mat4 model10 = glm::mat4(1.0f);
+            model10 = glm::translate(model10, cubePositions[i]);
+            model10 = glm::rotate(model10, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model10 = glm::scale(model10, glm::vec3(0.01f, 0.01f, 0.01f));
+            ourShader.setMat4("model", model10);
+            ourModel10.Draw(ourShader);
+        }
+		for (unsigned int i = 35; i < 39; i++)
+		{
+			glm::mat4 model10 = glm::mat4(1.0f);
+			model10 = glm::translate(model10, cubePositions[i]);
+			model10 = glm::rotate(model10, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			model10 = glm::scale(model10, glm::vec3(0.01f, 0.01f, 0.01f));
+			ourShader.setMat4("model", model10);
+			ourModel10.Draw(ourShader);
+		}
+		
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 300.0f);
@@ -445,19 +475,22 @@ int main()
         glBindTexture(GL_TEXTURE_2D, emissionMap);
 
         // render the cube
+                // render the cube
         glBindVertexArray(cubeVAO);
         for (unsigned int i = 0; i < 6; i++)
-	{
-	    	glm::mat4 model = glm::mat4(1.0f);
-    		float angle = glfwGetTime() + i; // Calculate the angle based on time and cube index
-    		float radius = 5.0f; // Radius of the circular path
-    		float x = cubePositions[i].x + radius * cos(angle);
-    		float z = cubePositions[i].z + radius * sin(angle);
-    		model = glm::translate(model, glm::vec3(x, cubePositions[i].y, z));
-    		model = glm::scale(model, glm::vec3(1.2f));
-    		lightingShader.setMat4("model", model);
-    		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
+        {
+            glm::mat4 model = glm::mat4(1.0f);
+            float time = glfwGetTime();
+            float radius = 2.0f; // Radio del círculo
+            float angle = time + i; // Ángulo para el movimiento circular
+            float x = cubePositions[i].x + radius * cos(angle);
+            float z = cubePositions[i].z + radius * sin(angle);
+            model = glm::translate(model, glm::vec3(x, cubePositions[i].y, z));
+            model = glm::scale(model, glm::vec3(1.2f));
+            lightingShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+
 
         // also draw the lamp object
         lightCubeShader.use();
@@ -465,11 +498,11 @@ int main()
         lightCubeShader.setMat4("view", view);
 
         glBindVertexArray(lightCubeVAO);
-        for (unsigned int i = 0; i < 4; i++)
+        for (unsigned int i = 0; i < 8; i++)
         {
             model = glm::mat4(1.0f);
             model = glm::translate(model, pointLightPositions[i]);
-            model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+            model = glm::scale(model, glm::vec3(0.4f)); // a smaller cube
             lightCubeShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
@@ -553,7 +586,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     camera.ProcessMouseScroll(yoffset);
 }
 
-// Ejercicio 14 Tarea 2
+
 // Función de utilidad para cargar una textura 2D desde un archivo
 // ---------------------------------------------------
 unsigned int loadTexture(char const* path)
@@ -597,4 +630,3 @@ unsigned int loadTexture(char const* path)
 
     return textureID; // Devuelve el identificador de la textura cargada
 }
-
