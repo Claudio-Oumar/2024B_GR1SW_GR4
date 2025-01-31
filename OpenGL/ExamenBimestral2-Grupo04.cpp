@@ -447,13 +447,17 @@ int main()
         // render the cube
         glBindVertexArray(cubeVAO);
         for (unsigned int i = 0; i < 6; i++)
-        {
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, cubePositions[i]);
-            model = glm::scale(model, glm::vec3(1.2f));
-            lightingShader.setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+	{
+	    	glm::mat4 model = glm::mat4(1.0f);
+    		float angle = glfwGetTime() + i; // Calculate the angle based on time and cube index
+    		float radius = 5.0f; // Radius of the circular path
+    		float x = cubePositions[i].x + radius * cos(angle);
+    		float z = cubePositions[i].z + radius * sin(angle);
+    		model = glm::translate(model, glm::vec3(x, cubePositions[i].y, z));
+    		model = glm::scale(model, glm::vec3(1.2f));
+    		lightingShader.setMat4("model", model);
+    		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
 
         // also draw the lamp object
         lightCubeShader.use();
