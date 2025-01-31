@@ -14,7 +14,7 @@
 
 #include <iostream>
 
-void framebuffer_size_callback(GLFWwindow * window, int width, int height);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
@@ -46,13 +46,13 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-#ifdef _APPLE_
+#ifdef APPLE
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Exercise 14 Task 4", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Examen Grupo04", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -75,34 +75,34 @@ int main()
         return -1;
     }
 
-
     // ------------------------------------
     glEnable(GL_DEPTH_TEST);
 
     // ------------------------------------
     Shader lightingShader("shaders/shader_exercise14t4_materials.vs", "shaders/shader_exercise14t4_materials.fs");
     Shader lightCubeShader("shaders/shader_exercise14_lightcube.vs", "shaders/shader_exercise14_lightcube.fs");
-	//-------------------------------------
+    //-------------------------------------
     Shader ourShader("shaders/ExamenBimestral2-Grupo04.vs", "shaders/ExamenBimestral2-Grupo04.fs");
 
-	// ------------------------------------
+    // ------------------------------------
+	//Ruina inglesa
     Model ourModel1("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model01/model01.obj");
     // diablo aire
     Model ourModel2("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj");
     // antorcha
-    Model ourModel3("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model04/model04.obj");
+    Model ourModel3("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/brick/brick.obj");
     // personaje
-    Model ourModel5("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model05/model05.obj");
+    Model ourModel5("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model11/model11.obj");
     //fogata
-    Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj");
+    //Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model06/model06.obj");
     // piso
     Model ourModel6("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model07/model07.obj");
     Model ourModel7("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/inglesia/inglesia.obj");
     Model ourModel8("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/ruined/ruined.obj");
     Model ourModel9("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/demon/demon.obj");
-
+	Model ourModel10("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/farola/farola.obj");
+  
     // ------------------------------------------------------------------
- //Exercise 14 Task 2
     float vertices[] = {
         // positions          // normals           // texture coords
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -152,69 +152,74 @@ int main()
         // x ,   y , z
         // Posición cubo 
         glm::vec3(2.0f,  0.5f, 1.0f),
-        glm::vec3(0.5f, 0.5f, 5.0f),
-        glm::vec3(4.5f, 0.5f, 5.0f),
-        glm::vec3(2.4f, 0.5f, -2.0f),
-        glm::vec3(0.0f,  0.5f, -6.0f),
+        glm::vec3(8.0f, 0.5f, 5.0f),
+        glm::vec3(14.5f, 0.5f, 14.0f),
+        glm::vec3(25.4f, 0.5f, 16.0f),
+        glm::vec3(15.0f,  0.5f, -10.0f),
+		glm::vec3(6.0f,  0.5f, -15.0f),
 
-		// diablo aire
+        // diablo aire
         glm::vec3(-3.0f, 16.0f, 5.0f),
-		glm::vec3(-6.0f, 19.0f, 8.0f),
-		glm::vec3(-9.0f, 22.0f, 11.0f),
-		glm::vec3(-12.0f, 25.0f, 14.0f),
-		glm::vec3(-6.0f, 19.0f, 2.0f),
-		glm::vec3(-9.0f, 22.0f, -1.0f),
-		glm::vec3(-12.0f, 25.0f, -4.0f),
+        glm::vec3(-6.0f, 19.0f, 8.0f),
+        glm::vec3(-9.0f, 22.0f, 11.0f),
+        glm::vec3(-12.0f, 25.0f, 14.0f),
+        glm::vec3(-6.0f, 19.0f, 2.0f),
+        glm::vec3(-9.0f, 22.0f, -1.0f),
+        glm::vec3(-12.0f, 25.0f, -4.0f),
 
-       // Antorcha
-        glm::vec3(0.0f, 0.0f, -15.0f),
-		glm::vec3(8.0f, 0.0f, -15.0f),
-		glm::vec3(16.0f, 0.0f, -15.0f),
+        // Antorcha
+        glm::vec3(-8.0f, 2.0f, -20.0f),
+        glm::vec3(0.0f, 2.0f, -20.0f),
+        glm::vec3(8.0f, 2.0f, -20.0f),
+        glm::vec3(16.0f, 2.0f, -20.0f),
+		glm::vec3(24.0f, 2.0f, -20.0f),
+		glm::vec3(32.0f, 2.0f, -20.0f),
+		glm::vec3(40.0f, 2.0f, -20.0f),
+		glm::vec3(48.0f, 2.0f, -20.0f),
+		glm::vec3(56.0f, 2.0f, -20.0f),
 
+        glm::vec3(-8.0f, 2.0f, 33.0f),
+        glm::vec3(0.0f, 2.0f, 33.0f),
+        glm::vec3(8.0f, 2.0f, 33.0f),
+        glm::vec3(16.0f, 2.0f, 33.0f),
+        glm::vec3(24.0f, 2.0f, 33.0f),
+        glm::vec3(32.0f, 2.0f, 33.0f),
+        glm::vec3(40.0f, 2.0f, 33.0f),
+        glm::vec3(48.0f, 2.0f, 33.0f),
+        glm::vec3(56.0f, 2.0f, 33.0f)
     };
 
 
-     // Posicion de las luces en la escena
+    // Posicion de las luces en la escena
     glm::vec3 pointLightPositions[] = {
         glm::vec3(0.7f,  1.2f,  2.0f), // Posición de una luz
-        glm::vec3(2.3f, 1.3f, -4.0f), // Posición de otra luz
+        glm::vec3(2.3f, 1.3f, -4.0f), 
         glm::vec3(-4.0f,  1.0f, -12.0f),
         glm::vec3(0.0f,  1.0f, -3.0f)
     };
-
-    
 
     // first, configure the cube's VAO (and VBO)
     unsigned int VBO, cubeVAO;
     glGenVertexArrays(1, &cubeVAO);
     glGenBuffers(1, &VBO);
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
     glBindVertexArray(cubeVAO);
-
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // normal attribute
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-
-    //Exerice 14 Task 2
    //texture attribute
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
-
 
     // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
     unsigned int lightCubeVAO;
     glGenVertexArrays(1, &lightCubeVAO);
     glBindVertexArray(lightCubeVAO);
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    //Exercise 14 Task 2
     // note that we update the lamp's position attribute's stride to reflect the updated buffer data
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -260,13 +265,13 @@ int main()
 
         // material properties
         //lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-        lightingShader.setFloat("material.shininess", 64.0f);
+        lightingShader.setFloat("material.shininess", 32.0f);
 
         // don't forget to enable shader before setting uniforms
         //ourShader.use();
-		// directional light se comporta como el sol en la escena
+        // directional light se comporta como el sol en la escena
         lightingShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        lightingShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);   
+        lightingShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
         lightingShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
         lightingShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
         // point light 1 Son fuentes de luz que emiten luz en todas direcciones desde un punto específico
@@ -313,8 +318,6 @@ int main()
         lightingShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
         lightingShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
-
-
         // render the first model
         glm::mat4 model1 = glm::mat4(1.0f);
         model1 = glm::translate(model1, glm::vec3(-23.0f, 0.0f, -17.0f));
@@ -323,38 +326,37 @@ int main()
         ourModel1.Draw(ourShader);
 
         // Render the second model with floating effect in a loop
-	for (unsigned int i = 5; i < 12; i++)
-	{
-    		glm::mat4 model2 = glm::mat4(1.0f);
-    		float time = glfwGetTime();
-    		float floatOffset = sin(time + i) * 5.0f; // Offset based on time and model index
-    		glm::vec3 newPosition = cubePositions[i];
-    		newPosition.y += floatOffset;  // Apply the sinusoidal offset to the Y position
-    		model2 = glm::translate(model2, newPosition);  // Translate to new position with float effect
-   		model2 = glm::scale(model2, glm::vec3(0.8f, 0.8f, 0.8f));  // Scale the model
-    		model2 = glm::rotate(model2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));  // Rotate around Y axis
-    		ourShader.setMat4("model", model2);  // Set the model matrix
-    		ourModel2.Draw(ourShader);  // Draw the model
-	}
-       
+        for (unsigned int i = 6; i < 13; i++)
+        {
+            glm::mat4 model2 = glm::mat4(1.0f);
+            float time = glfwGetTime();
+            float floatOffset = sin(time + i) * 5.0f; 
+            glm::vec3 newPosition = cubePositions[i];
+            newPosition.y += floatOffset;  
+            model2 = glm::translate(model2, newPosition);  
+            model2 = glm::scale(model2, glm::vec3(0.8f, 0.8f, 0.8f)); 
+            model2 = glm::rotate(model2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));  
+            ourShader.setMat4("model", model2); 
+            ourModel2.Draw(ourShader);  
+        }
 
         // render the third model
-		for (unsigned int i = 12; i < 15; i++)
-		{
-			glm::mat4 model3 = glm::mat4(1.0f);
-			model3 = glm::translate(model3, cubePositions[i]);
-			model3 = glm::scale(model3, glm::vec3(0.2f, 0.2f, 0.2f));
-			ourShader.setMat4("model", model3);
-			ourModel3.Draw(ourShader);
-		}
+        for (unsigned int i = 13; i < 30; i++)
+        {
+            glm::mat4 model3 = glm::mat4(1.0f);
+            model3 = glm::translate(model3, cubePositions[i]);
+            model3 = glm::scale(model3, glm::vec3(1.0f, 1.0f, 1.0f));
+            ourShader.setMat4("model", model3);
+            ourModel3.Draw(ourShader);
+        }
 
         // render the fourth model
-        glm::mat4 model4 = glm::mat4(1.0f);
+        /*glm::mat4 model4 = glm::mat4(1.0f);
         model4 = glm::translate(model4, glm::vec3(5.0f, -0.3f, 5.0f));
         model4 = glm::rotate(model4, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model4 = glm::scale(model4, glm::vec3(0.15f, 0.15f, 0.15f));
         ourShader.setMat4("model", model4);
-        ourModel4.Draw(ourShader);
+        ourModel4.Draw(ourShader);*/
 
         // render the fifth model
         glm::mat4 model5 = glm::mat4(1.0f);
@@ -380,11 +382,12 @@ int main()
         ourShader.setMat4("model", model8);
         ourModel8.Draw(ourShader);
 
-        // render the ninth model
+        // render the ninth 
         glm::mat4 model9 = glm::mat4(1.0f);
-        model9 = glm::translate(model9, glm::vec3(-40.0f, -70.0f, 0.0f)); // translate it to a new position
-        model9 = glm::rotate(model9, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // rotate it 180 degrees around the Y axis
-        model9 = glm::scale(model9, glm::vec3(40.0f, 40.0f, 40.0f));  // scale it down
+        model9 = glm::translate(model9, glm::vec3(-40.0f, -80.0f, 0.0f)); 
+        model9 = glm::rotate(model9, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)); 
+        float scale = 29.0f + 11.0f * sin(glfwGetTime()); // dynamic scaling between 18 and 40
+        model9 = glm::scale(model9, glm::vec3(scale, scale, scale));
         ourShader.setMat4("model", model9);
         ourModel9.Draw(ourShader);
 
@@ -405,16 +408,23 @@ int main()
                 model6 = glm::scale(model6, glm::vec3(3.0f, 3.0f, 3.0f));
                 ourShader.setMat4("model", model6);
                 ourModel6.Draw(ourShader);
+
+
             }
         }
-
-
+		// render the tenth model
+		glm::mat4 model10 = glm::mat4(1.0f);
+		model10 = glm::translate(model10, glm::vec3(0.0f, 0.0f, 0.0f));
+        model10 = glm::rotate(model10, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model10 = glm::scale(model10, glm::vec3(0.01f, 0.01f, 0.01f));
+		ourShader.setMat4("model", model10);
+		ourModel10.Draw(ourShader);
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 300.0f);
         glm::mat4 view = camera.GetViewMatrix();
-		ourShader.setMat4("projection", projection);
-		ourShader.setMat4("view", view);
+        ourShader.setMat4("projection", projection);
+        ourShader.setMat4("view", view);
         lightingShader.setMat4("projection", projection);
         lightingShader.setMat4("view", view);
 
@@ -422,11 +432,9 @@ int main()
         glm::mat4 model = glm::mat4(1.0f);
         lightingShader.setMat4("model", model);
 
-
         // bind diffuse map
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
-
 
         // bind specular map
         glActiveTexture(GL_TEXTURE1);
@@ -438,15 +446,14 @@ int main()
 
         // render the cube
         glBindVertexArray(cubeVAO);
-		for (unsigned int i = 0; i < 4; i++)
-		{
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, cubePositions[i]);
-			model = glm::scale(model, glm::vec3(1.2f));
-			lightingShader.setMat4("model", model);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
-
+        for (unsigned int i = 0; i < 6; i++)
+        {
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, cubePositions[i]);
+            model = glm::scale(model, glm::vec3(1.2f));
+            lightingShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
         // also draw the lamp object
         lightCubeShader.use();
@@ -454,15 +461,14 @@ int main()
         lightCubeShader.setMat4("view", view);
 
         glBindVertexArray(lightCubeVAO);
-		for (unsigned int i = 0; i < 4; i++)
-		{
-			model = glm::mat4(1.0f);
-			model = glm::translate(model, pointLightPositions[i]);
-			model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-			lightCubeShader.setMat4("model", model);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
-
+        for (unsigned int i = 0; i < 4; i++)
+        {
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, pointLightPositions[i]);
+            model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+            lightCubeShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -587,3 +593,4 @@ unsigned int loadTexture(char const* path)
 
     return textureID; // Devuelve el identificador de la textura cargada
 }
+
