@@ -27,7 +27,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(11.0f, 1.7f, -3.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -543,6 +543,12 @@ void processInput(GLFWwindow* window)
     // Si se presiona la tecla 'D', mueve la cámara hacia la derecha
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
+
+	// Limitar la posición Y de la cámara para que no pase por debajo de 0.0
+    if (camera.Position.y < 0.2f)
+	{
+    		camera.Position.y = 0.2f;
+	}
 }
 
 // glfw: siempre que el tamaño de la ventana cambie (por el sistema operativo o el redimensionamiento del usuario), se ejecuta esta función de devolución de llamada
