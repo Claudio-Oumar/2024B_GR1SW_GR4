@@ -322,6 +322,39 @@ int main()
         lightingShader.setFloat("pointLights[3].constant", 1.0f);
         lightingShader.setFloat("pointLights[3].linear", 0.09);
         lightingShader.setFloat("pointLights[3].quadratic", 0.032);
+	    // point light 5
+lightingShader.setVec3("pointLights[4].position", pointLightPositions[4]);
+lightingShader.setVec3("pointLights[4].ambient", 0.05f, 0.05f, 0.05f);
+lightingShader.setVec3("pointLights[4].diffuse", 0.8f, 0.8f, 0.8f);
+lightingShader.setVec3("pointLights[4].specular", 1.0f, 1.0f, 1.0f);
+lightingShader.setFloat("pointLights[4].constant", 1.0f);
+lightingShader.setFloat("pointLights[4].linear", 0.09);
+lightingShader.setFloat("pointLights[4].quadratic", 0.032);
+// point light 6
+lightingShader.setVec3("pointLights[5].position", pointLightPositions[5]);
+lightingShader.setVec3("pointLights[5].ambient", 0.05f, 0.05f, 0.05f);
+lightingShader.setVec3("pointLights[5].diffuse", 0.8f, 0.8f, 0.8f);
+lightingShader.setVec3("pointLights[5].specular", 1.0f, 1.0f, 1.0f);
+lightingShader.setFloat("pointLights[5].constant", 1.0f);
+lightingShader.setFloat("pointLights[5].linear", 0.09);
+lightingShader.setFloat("pointLights[5].quadratic", 0.032);
+// point light 7
+lightingShader.setVec3("pointLights[6].position", pointLightPositions[6]);
+lightingShader.setVec3("pointLights[6].ambient", 0.05f, 0.05f, 0.05f);
+lightingShader.setVec3("pointLights[6].diffuse", 0.8f, 0.8f, 0.8f);
+lightingShader.setVec3("pointLights[6].specular", 1.0f, 1.0f, 1.0f);
+lightingShader.setFloat("pointLights[6].constant", 1.0f);
+lightingShader.setFloat("pointLights[6].linear", 0.09);
+lightingShader.setFloat("pointLights[6].quadratic", 0.032);
+// point light 8
+lightingShader.setVec3("pointLights[7].position", pointLightPositions[7]);
+lightingShader.setVec3("pointLights[7].ambient", 0.05f, 0.05f, 0.05f);
+lightingShader.setVec3("pointLights[7].diffuse", 0.8f, 0.8f, 0.8f);
+lightingShader.setVec3("pointLights[7].specular", 1.0f, 1.0f, 1.0f);
+lightingShader.setFloat("pointLights[7].constant", 1.0f);
+lightingShader.setFloat("pointLights[7].linear", 0.09);
+lightingShader.setFloat("pointLights[7].quadratic", 0.032);
+
 
         // spotLight linterna con un cono de luz dirigido.
         lightingShader.setVec3("spotLight.position", camera.Position);
