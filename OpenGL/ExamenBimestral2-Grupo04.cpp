@@ -312,24 +312,17 @@ int main()
             ourShader.setFloat("spotLights[" + number + "].cutOff", glm::cos(glm::radians(12.5f)));
             ourShader.setFloat("spotLights[" + number + "].outerCutOff", glm::cos(glm::radians(15.0f)));
         }
-        // point light 1 Son fuentes de luz que emiten luz en todas direcciones desde un punto específico
+	    
+        for (unsigned int i = 0; i < 2; i++) {
+    ourShader.setVec3("pointLights[" + std::to_string(i) + "].position", pointLightPositions[8 + i]);
+    ourShader.setVec3("pointLights[" + std::to_string(i) + "].ambient", 10.0f, 0.0f, 0.0f);
+    ourShader.setVec3("pointLights[" + std::to_string(i) + "].diffuse", 2.0f, 0.0f, 0.0f);
+    ourShader.setVec3("pointLights[" + std::to_string(i) + "].specular", 2.5f, 0.0f, 0.0f);
+    ourShader.setFloat("pointLights[" + std::to_string(i) + "].constant", 1.0f);
+    ourShader.setFloat("pointLights[" + std::to_string(i) + "].linear", 0.09f);
+    ourShader.setFloat("pointLights[" + std::to_string(i) + "].quadratic", 0.032f);
+	}
 
-        ourShader.setVec3("pointLights[0].position", pointLightPositions[8]);
-        ourShader.setVec3("pointLights[0].ambient", 10.0f, 0.0f, 0.0f); // Luz ambiental (rojo intenso)
-        ourShader.setVec3("pointLights[0].diffuse", 2.0f, 0.0f, 0.0f); // Luz difusa (rojo intenso)
-        ourShader.setVec3("pointLights[0].specular", 2.5f, 0.0f, 0.0f); // Luz especular (rojo intenso)
-        ourShader.setFloat("pointLights[0].constant", 1.0f); // Factores de atenuación: constant, linear y quadratic (para disminuir la intensidad con la distancia).
-        ourShader.setFloat("pointLights[0].linear", 0.09);
-        ourShader.setFloat("pointLights[0].quadratic", 0.032);
-
-        // point light 2
-        ourShader.setVec3("pointLights[1].position", pointLightPositions[9]);
-        ourShader.setVec3("pointLights[1].ambient", 10.0f, 0.0f, 0.0f); // Luz ambiental (rojo intenso)
-        ourShader.setVec3("pointLights[1].diffuse", 2.0f, 0.0f, 0.0f); // Luz difusa (rojo intenso)
-        ourShader.setVec3("pointLights[1].specular", 2.5f, 0.0f, 0.0f); // Luz especular (rojo intenso)
-        ourShader.setFloat("pointLights[1].constant", 1.0f);
-        ourShader.setFloat("pointLights[1].linear", 0.09);
-        ourShader.setFloat("pointLights[1].quadratic", 0.032);
         // point light 3
        // point light 3
 	ourShader.setVec3("pointLights[2].position", pointLightPositions[10]);
