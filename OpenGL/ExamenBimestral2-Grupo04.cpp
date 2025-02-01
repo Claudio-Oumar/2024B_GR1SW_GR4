@@ -543,7 +543,7 @@ int main()
             lightCubeShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-        if (showModel) {
+                if (showModel) {
             // Verifica si la escala es 40
             float scale = 29.0f + 11.0f * sin(glfwGetTime()); // dynamic scaling between 18 and 40
             if (scale >= 39.9f && scale <= 40.1f) {
@@ -553,6 +553,7 @@ int main()
                     lightCubeShader.setVec3("lightColor", 1.0f, 0.5f, 0.0f); // Color naranja
                     model = glm::mat4(1.0f);
                     model = glm::translate(model, pointLightPositions[i]);
+                    model = glm::rotate(model, (float)glfwGetTime() * glm::radians(360.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en el eje Y
                     model = glm::scale(model, glm::vec3(2.0f)); // a smaller cube
                     lightCubeShader.setMat4("model", model);
                     glDrawArrays(GL_TRIANGLES, 0, 36);
