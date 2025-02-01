@@ -548,15 +548,31 @@ int main()
         //lightCubeShader.setVec3("lightColor", 1.0f, 0.0f, 0.0f);
 
         glBindVertexArray(lightCubeVAO);
-        for (unsigned int i = 0; i < 8; i++)
-        {
-            lightCubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f); // Color blanco
-            model = glm::mat4(1.0f);
-            model = glm::translate(model, pointLightPositions[i]);
-            model = glm::scale(model, glm::vec3(0.4f)); // a smaller cube
-            lightCubeShader.setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+        //  cubos farolas
+	if (showModel) {
+	    for (unsigned int i = 0; i < 8; i++)
+	    {
+	        lightCubeShader.setVec3("lightColor", 1.0f, 0.0f, 0.0f); //colo  rojo
+	        model = glm::mat4(1.0f);
+	        model = glm::translate(model, pointLightPositions[i]);
+	        model = glm::scale(model, glm::vec3(0.4f)); // a smaller cube
+	        lightCubeShader.setMat4("model", model);
+	        glDrawArrays(GL_TRIANGLES, 0, 36);
+	    }
+	}
+	else
+	{
+	for (unsigned int i = 0; i < 8; i++)
+	{
+	lightCubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f); // Color blanco
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, pointLightPositions[i]);
+	model = glm::scale(model, glm::vec3(0.4f)); // a smaller cube
+	lightCubeShader.setMat4("model", model);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
+	}
+
                 if (showModel) {
             // Verifica si la escala es 40
             float scale = 29.0f + 11.0f * sin(glfwGetTime()); // dynamic scaling between 18 and 40
