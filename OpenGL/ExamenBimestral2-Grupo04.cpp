@@ -37,8 +37,11 @@ float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 // Mostrar modelo
 bool showModel = false;
+bool rKeyPressed = false;
+
 // Mostrar cubo
 bool hideCube = false;
+
 int main()
 {
     // glfw: initialize and configure
@@ -81,7 +84,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     // ------------------------------------
-    Shader lightCubeShader("shaders/shader_exercise14_lightcube.vs", "shaders/shader_exercise14_lightcube.fs");
+    Shader lightCubeShader("shaders/ExamenBimestral2-Grupo04_lightcube.vs", "shaders/ExamenBimestral2-Grupo04_lightcube.fs");
     //-------------------------------------
     Shader ourShader("shaders/ExamenBimestral2-Grupo04.vs", "shaders/ExamenBimestral2-Grupo04.fs");
 
@@ -281,24 +284,20 @@ int main()
         ourShader.use();
         ourShader.setVec3("viewPos", camera.Position);
 
-        // light properties
-        ourShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        ourShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-        ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-
-        // material properties
-        //lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
         ourShader.setFloat("material.shininess", 32.0f);
-
-        // don't forget to enable shader before setting uniforms
-        //ourShader.use();
-       
-        // directional light se comporta como el sol en la escena
-        ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f); // Reducir la luz ambiental
-        ourShader.setVec3("dirLight.diffuse", 0.2f, 0.2f, 0.2f); // Reducir la luz difusa
-        ourShader.setVec3("dirLight.specular", 0.3f, 0.3f, 0.3f); // Reducir la luz especular
-
+	// Cambiar el color de la luz direccional según el valor de isRedLight
+	if (showModel)
+	{
+	    ourShader.setVec3("dirLight.ambient", 0.1f, 0.0f, 0.0f); // Luz ambiental roja
+	    ourShader.setVec3("dirLight.diffuse", 0.5f, 0.0f, 0.0f); // Luz difusa roja
+	    ourShader.setVec3("dirLight.specular", 1.0f, 0.0f, 0.0f); // Luz especular roja
+	}
+	else
+	{
+	    ourShader.setVec3("dirLight.ambient", 0.000003f, 0.000003f, 0.000003f); // Luz ambiental muy tenue
+	    ourShader.setVec3("dirLight.diffuse", 0.00002f, 0.00002f, 0.00002f); // Luz difusa muy tenue
+	    ourShader.setVec3("dirLight.specular", 0.01f, 0.01f, 0.01f); // Luz especular muy tenue
+	}
         // Configura las propiedades de las luces de foco en el shader
         for (unsigned int i = 0; i < 8; i++) {
             std::string number = std::to_string(i);
@@ -316,29 +315,30 @@ int main()
         // point light 1 Son fuentes de luz que emiten luz en todas direcciones desde un punto específico
 
         ourShader.setVec3("pointLights[0].position", pointLightPositions[8]);
-        ourShader.setVec3("pointLights[0].ambient", 20.0f, 0.0f, 0.0f); // Luz ambiental (rojo intenso)
-        ourShader.setVec3("pointLights[0].diffuse", 10.0f, 0.0f, 0.0f); // Luz difusa (rojo intenso)
-        ourShader.setVec3("pointLights[0].specular", 10.5f, 0.0f, 0.0f); // Luz especular (rojo intenso)
+        ourShader.setVec3("pointLights[0].ambient", 10.0f, 0.0f, 0.0f); // Luz ambiental (rojo intenso)
+        ourShader.setVec3("pointLights[0].diffuse", 2.0f, 0.0f, 0.0f); // Luz difusa (rojo intenso)
+        ourShader.setVec3("pointLights[0].specular", 2.5f, 0.0f, 0.0f); // Luz especular (rojo intenso)
         ourShader.setFloat("pointLights[0].constant", 1.0f); // Factores de atenuación: constant, linear y quadratic (para disminuir la intensidad con la distancia).
         ourShader.setFloat("pointLights[0].linear", 0.09);
         ourShader.setFloat("pointLights[0].quadratic", 0.032);
 
         // point light 2
         ourShader.setVec3("pointLights[1].position", pointLightPositions[9]);
-        ourShader.setVec3("pointLights[1].ambient", 20.0f, 0.0f, 0.0f); // Luz ambiental (rojo intenso)
-        ourShader.setVec3("pointLights[1].diffuse", 10.0f, 0.0f, 0.0f); // Luz difusa (rojo intenso)
-        ourShader.setVec3("pointLights[1].specular", 10.5f, 0.0f, 0.0f); // Luz especular (rojo intenso)
+        ourShader.setVec3("pointLights[1].ambient", 10.0f, 0.0f, 0.0f); // Luz ambiental (rojo intenso)
+        ourShader.setVec3("pointLights[1].diffuse", 2.0f, 0.0f, 0.0f); // Luz difusa (rojo intenso)
+        ourShader.setVec3("pointLights[1].specular", 2.5f, 0.0f, 0.0f); // Luz especular (rojo intenso)
         ourShader.setFloat("pointLights[1].constant", 1.0f);
         ourShader.setFloat("pointLights[1].linear", 0.09);
         ourShader.setFloat("pointLights[1].quadratic", 0.032);
         // point light 3
-        ourShader.setVec3("pointLights[2].position", pointLightPositions[10]);
-        ourShader.setVec3("pointLights[2].ambient", 0.0f, 0.2f, 0.0f); // Verde 
-        ourShader.setVec3("pointLights[2].diffuse", 0.0f, 0.5f, 0.0f); // Verde i
-        ourShader.setVec3("pointLights[2].specular", 0.0f, 0.7f, 0.0f); // Verde 
-        ourShader.setFloat("pointLights[2].constant", 1.0f);
-        ourShader.setFloat("pointLights[2].linear", 0.09);
-        ourShader.setFloat("pointLights[2].quadratic", 0.032);
+       // point light 3
+	ourShader.setVec3("pointLights[2].position", pointLightPositions[10]);
+	ourShader.setVec3("pointLights[2].ambient", 0.2f, 0.0f, 0.2f); // Morado
+	ourShader.setVec3("pointLights[2].diffuse", 0.5f, 0.0f, 0.5f); // Morado
+	ourShader.setVec3("pointLights[2].specular", 0.7f, 0.0f, 0.7f); // Morado
+	ourShader.setFloat("pointLights[2].constant", 1.0f);
+	ourShader.setFloat("pointLights[2].linear", 0.09);
+	ourShader.setFloat("pointLights[2].quadratic", 0.032);
         // point light 4
         ourShader.setVec3("pointLights[3].position", pointLightPositions[11]);
         ourShader.setVec3("pointLights[3].ambient", 0.0f, 0.2f, 0.0f); // Verde
@@ -349,18 +349,35 @@ int main()
         ourShader.setFloat("pointLights[3].quadratic", 0.032);
 
         // Configura las propiedades de las luces de foco en el shader
-        for (unsigned int i = 0; i < 8; i++) { // Cambia 8 a 12 para incluir más luces
-            std::string number = std::to_string(i);
-            ourShader.setVec3("spotLights[" + number + "].position", pointLightPositions[i]);
-            ourShader.setVec3("spotLights[" + number + "].direction", glm::vec3(0.0f, -1.0f, 0.0f)); // Dirección del foco
-            ourShader.setVec3("spotLights[" + number + "].ambient", 0.1f, 0.1f, 0.05f); // Color medio amarillento
-            ourShader.setVec3("spotLights[" + number + "].diffuse", 0.8f, 0.8f, 0.4f); // Color medio amarillento
-            ourShader.setVec3("spotLights[" + number + "].specular", 1.0f, 1.0f, 0.5f); // Color medio amarillento
-            ourShader.setFloat("spotLights[" + number + "].constant", 1.0f);
-            ourShader.setFloat("spotLights[" + number + "].linear", 0.09f);
-            ourShader.setFloat("spotLights[" + number + "].quadratic", 0.032f);
-            ourShader.setFloat("spotLights[" + number + "].cutOff", glm::cos(glm::radians(12.5f))); // Aumenta el ángulo interno
-            ourShader.setFloat("spotLights[" + number + "].outerCutOff", glm::cos(glm::radians(35.0f)));// Aumenta el ángulo externo
+        if (showModel) {
+            for (unsigned int i = 0; i < 8; i++) { // Cambia 8 a 12 para incluir más luces
+                std::string number = std::to_string(i);
+                ourShader.setVec3("spotLights[" + number + "].position", pointLightPositions[i]);
+                ourShader.setVec3("spotLights[" + number + "].direction", glm::vec3(0.0f, -1.0f, 0.0f)); // Dirección del foco
+                ourShader.setVec3("spotLights[" + number + "].ambient", 0.2f, 0.0f, 0.0f); // Luz ambiental roja
+                ourShader.setVec3("spotLights[" + number + "].diffuse", 1.6f, 0.0f, 0.0f); // Luz difusa roja
+                ourShader.setVec3("spotLights[" + number + "].specular", 2.0f, 0.0f, 0.0f); // Luz especular roja
+                ourShader.setFloat("spotLights[" + number + "].constant", 1.0f);
+                ourShader.setFloat("spotLights[" + number + "].linear", 0.09f);
+                ourShader.setFloat("spotLights[" + number + "].quadratic", 0.032f);
+                ourShader.setFloat("spotLights[" + number + "].cutOff", glm::cos(glm::radians(12.5f))); // Aumenta el ángulo interno
+                ourShader.setFloat("spotLights[" + number + "].outerCutOff", glm::cos(glm::radians(35.0f))); // Aumenta el ángulo externo
+            }
+        }
+        else {
+            for (unsigned int i = 0; i < 8; i++) { // Cambia 8 a 12 para incluir más luces
+                std::string number = std::to_string(i);
+                ourShader.setVec3("spotLights[" + number + "].position", pointLightPositions[i]);
+                ourShader.setVec3("spotLights[" + number + "].direction", glm::vec3(0.0f, -1.0f, 0.0f)); // Dirección del foco
+                ourShader.setVec3("spotLights[" + number + "].ambient", 0.2f, 0.2f, 0.1f); // Color medio amarillento --Incrementar
+                ourShader.setVec3("spotLights[" + number + "].diffuse", 1.6f, 1.6f, 0.8f); // Color medio amarillento --Incrementar
+                ourShader.setVec3("spotLights[" + number + "].specular", 2.0f, 2.0f, 1.0f); // Color medio amarillento  --Incrementar
+                ourShader.setFloat("spotLights[" + number + "].constant", 1.0f);
+                ourShader.setFloat("spotLights[" + number + "].linear", 0.09f);
+                ourShader.setFloat("spotLights[" + number + "].quadratic", 0.032f);
+                ourShader.setFloat("spotLights[" + number + "].cutOff", glm::cos(glm::radians(12.5f))); // Aumenta el ángulo interno
+                ourShader.setFloat("spotLights[" + number + "].outerCutOff", glm::cos(glm::radians(35.0f)));// Aumenta el ángulo externo
+            }
         }
 
 
@@ -614,8 +631,16 @@ void processInput(GLFWwindow* window)
     // Si se presiona la tecla 'D', mueve la cámara hacia la derecha
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-        showModel = true;
+    // Alternar el valor de showModel cuando se presiona la tecla 'R'
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && !rKeyPressed)
+	{
+	    showModel = !showModel;
+	    rKeyPressed = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
+	{
+	    rKeyPressed = false;
+	}
     if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         hideCube = true; // Oculta el cubo cuando se presiona la tecla 'R'
     // Limitar la posición Y de la cámara para que no pase por debajo de 0.0
