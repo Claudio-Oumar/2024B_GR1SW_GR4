@@ -37,7 +37,8 @@ float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 // Mostrar modelo
 bool showModel = false;
-
+// Mostrar cubo
+bool hideCube = false;
 int main()
 {
     // glfw: initialize and configure
@@ -514,6 +515,9 @@ int main()
         glBindVertexArray(cubeVAO);
         for (unsigned int i = 0; i < 6; i++)
         {
+            if (hideCube && i == 0) // Omite el primer cubo si hideCube es true
+                continue;
+
             glm::mat4 model = glm::mat4(1.0f);
             float time = glfwGetTime();
             float radius = 2.0f; // Radio del círculo
@@ -612,6 +616,8 @@ void processInput(GLFWwindow* window)
         camera.ProcessKeyboard(RIGHT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         showModel = true;
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+        hideCube = true; // Oculta el cubo cuando se presiona la tecla 'R'
     // Limitar la posición Y de la cámara para que no pase por debajo de 0.0
     if (camera.Position.y < 0.2f)
     {
