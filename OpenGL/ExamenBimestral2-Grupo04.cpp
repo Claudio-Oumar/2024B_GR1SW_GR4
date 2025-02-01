@@ -570,6 +570,7 @@ int main()
                     lightCubeShader.setVec3("lightColor", 1.0f, 0.5f, 0.0f); // Color naranja
                     model = glm::mat4(1.0f);
                     model = glm::translate(model, pointLightPositions[i]);
+                    model = glm::rotate(model, (float)glfwGetTime() * glm::radians(360.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en el eje Y
                     model = glm::scale(model, glm::vec3(2.0f)); // a smaller cube
                     lightCubeShader.setMat4("model", model);
                     glDrawArrays(GL_TRIANGLES, 0, 36);
