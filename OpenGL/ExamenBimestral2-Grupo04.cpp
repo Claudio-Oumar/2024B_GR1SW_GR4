@@ -41,7 +41,20 @@ bool rKeyPressed = false;
 // Intensidad de la luz
 float spotLightIntensity = 1.0f;
 
+//Tomas de cámara
+glm::vec3 cameraPositions[] = {
+    glm::vec3(20.0f, 10.0f, 20.0f),  // Esquina superior derecha
+    glm::vec3(-20.0f, 10.0f, 20.0f), // Esquina superior izquierda
+    glm::vec3(20.0f, 10.0f, -20.0f), // Esquina inferior derecha
+    glm::vec3(120.0f, 40.0f, -3.0f)   // Encima del modelo 5
+};
 
+glm::vec3 cameraFronts[] = {
+    glm::normalize(glm::vec3(-1.0f, -0.5f, -1.0f)), // Mirando hacia el centro desde la esquina superior derecha
+    glm::normalize(glm::vec3(1.0f, -0.5f, -1.0f)),  // Mirando hacia el centro desde la esquina superior izquierda
+    glm::normalize(glm::vec3(-1.0f, -0.5f, 1.0f)),  // Mirando hacia el centro desde la esquina inferior derecha
+    glm::normalize(glm::vec3(-1.0f, 0.0f, 0.0f))    // Mirando hacia abajo desde encima del modelo 5
+};
 int main()
 {
     // glfw: initialize and configure
@@ -643,7 +656,31 @@ void processInput(GLFWwindow* window)
         spotLightIntensity -= 0.1f;
         if (spotLightIntensity < 0.0f) spotLightIntensity = 0.0f; // Asegurarse de que la intensidad no sea negativa
     }
-   
+
+    // Cambiar la vista de la cámara al presionar las teclas del 1 al 4
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+        std::cout << "Tecla 1 presionada" << std::endl;
+        camera.Position = cameraPositions[0];
+        camera.Front = cameraFronts[0];
+    }
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+        std::cout << "Tecla 2 presionada" << std::endl;
+        camera.Position = cameraPositions[1];
+        camera.Front = cameraFronts[1];
+    }
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+        std::cout << "Tecla 3 presionada" << std::endl;
+        camera.Position = cameraPositions[2];
+        camera.Front = cameraFronts[2];
+    }
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+        std::cout << "Tecla 4 presionada" << std::endl;
+        camera.Position = cameraPositions[3];
+        camera.Front = cameraFronts[3];
+    }
+
+
+	
     // Limitar la posición Y de la cámara para que no pase por debajo de 0.0
     if (camera.Position.y < 0.2f)
     {
