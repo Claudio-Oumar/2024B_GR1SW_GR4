@@ -202,14 +202,14 @@ int main()
     };
     // Posicion de las luces en la escena 
     glm::vec3 pointLightPositions[] = {
-        glm::vec3(4.0f, 5.5f, 8.15f),
-        glm::vec3(12.0f, 5.5f, 8.15f),
-		glm::vec3(20.0f, 5.5f, 8.15f),
-		glm::vec3(28.0f, 5.5f, 8.15f),
-        glm::vec3(4.0f, 5.5f, -8.15f),
-        glm::vec3(12.0f, 5.5f, -8.15f),
-		glm::vec3(20.0f, 5.5f, -8.15f),
-		glm::vec3(28.0f, 5.5f, -8.15f),
+        glm::vec3(4.0f, 5.7f, 8.15f),
+        glm::vec3(12.0f, 5.7f, 8.15f),
+		glm::vec3(20.0f, 5.7f, 8.15f),
+		glm::vec3(28.0f, 5.7f, 8.15f),
+        glm::vec3(4.0f, 5.7f, -8.15f),
+        glm::vec3(12.0f, 5.7f, -8.15f),
+		glm::vec3(20.0f, 5.7f, -8.15f),
+		glm::vec3(28.0f, 5.7f, -8.15f),
         // fuego demonio rojo
 		glm::vec3(-45.0f, 85.0f, -14.0f),
 		glm::vec3(-45.0f, 85.0f, 14.0f),
@@ -294,20 +294,7 @@ int main()
             ourShader.setVec3("dirLight.specular", 0.01f, 0.01f, 0.01f); // Luz especular muy tenue
         }
 
-        // Configura las propiedades de las luces de foco en el shader
-        for (unsigned int i = 0; i < 8; i++) {
-            std::string number = std::to_string(i);
-            ourShader.setVec3("spotLights[" + number + "].position", pointLightPositions[i]);
-            ourShader.setVec3("spotLights[" + number + "].direction", glm::vec3(0.0f, -1.0f, 0.0f)); // Dirección del foco
-            ourShader.setVec3("spotLights[" + number + "].ambient", 0.05f, 0.05f, 0.05f);
-            ourShader.setVec3("spotLights[" + number + "].diffuse", 0.8f, 0.8f, 0.8f);
-            ourShader.setVec3("spotLights[" + number + "].specular", 1.0f, 1.0f, 1.0f);
-            ourShader.setFloat("spotLights[" + number + "].constant", 1.0f);
-            ourShader.setFloat("spotLights[" + number + "].linear", 0.09f);
-            ourShader.setFloat("spotLights[" + number + "].quadratic", 0.032f);
-            ourShader.setFloat("spotLights[" + number + "].cutOff", glm::cos(glm::radians(12.5f)));
-            ourShader.setFloat("spotLights[" + number + "].outerCutOff", glm::cos(glm::radians(15.0f)));
-        }
+        
         // point light 1 y 2
         for (unsigned int i = 0; i < 2; i++) {
             ourShader.setVec3("pointLights[" + std::to_string(i) + "].position", pointLightPositions[8 + i]);
@@ -354,7 +341,7 @@ int main()
             }
         }
         else {
-            for (unsigned int i = 0; i < 8; i++) { // Cambia 8 a 12 para incluir más luces
+            for (unsigned int i = 0; i < 8; i++) { 
                 std::string number = std::to_string(i);
                 ourShader.setVec3("spotLights[" + number + "].position", pointLightPositions[i]);
                 ourShader.setVec3("spotLights[" + number + "].direction", glm::vec3(0.0f, -1.0f, 0.0f)); // Dirección del foco
@@ -533,8 +520,6 @@ int main()
         lightCubeShader.use();
         lightCubeShader.setMat4("projection", projection);
         lightCubeShader.setMat4("view", view);
-        //lightCubeShader.setVec3("lightColor", 1.0f, 0.0f, 0.0f);
-
         glBindVertexArray(lightCubeVAO);
 		//  cubos farolas
 		if (showModel) {
@@ -543,7 +528,7 @@ int main()
                 lightCubeShader.setVec3("lightColor", 1.0f, 0.0f, 0.0f); //colo  rojo
                 model = glm::mat4(1.0f);
                 model = glm::translate(model, pointLightPositions[i]);
-                model = glm::scale(model, glm::vec3(0.4f)); // a smaller cube
+                model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
                 lightCubeShader.setMat4("model", model);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
             }
@@ -555,11 +540,12 @@ int main()
 				lightCubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f); // Color blanco
 				model = glm::mat4(1.0f);
 				model = glm::translate(model, pointLightPositions[i]);
-				model = glm::scale(model, glm::vec3(0.4f)); // a smaller cube
+				model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
 				lightCubeShader.setMat4("model", model);
 				glDrawArrays(GL_TRIANGLES, 0, 36);
 			}
 		}
+        // demonio rojo cubos
         if (showModel) {
             // Verifica si la escala es 40
             float scale = 29.0f + 11.0f * sin(glfwGetTime()); // dynamic scaling between 18 and 40
@@ -569,8 +555,17 @@ int main()
                 {
                     lightCubeShader.setVec3("lightColor", 1.0f, 0.5f, 0.0f); // Color naranja
                     model = glm::mat4(1.0f);
-                    model = glm::translate(model, pointLightPositions[i]);
-                    model = glm::rotate(model, (float)glfwGetTime() * glm::radians(360.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación en el eje Y
+
+                    // Calcular la posición en el círculo centrado en (-40.0f, 85.0f, 0.0f)
+                    float time = glfwGetTime();
+                    float speedFactor = 100.0f; // Factor de velocidad, ajusta este valor para aumentar o disminuir la velocidad
+                    float angle = speedFactor * time + glm::radians(360.0f / (10 - 8) * (i - 8)); // Dividir el círculo en partes iguales
+                    float radius = 5.0f; // Radio del círculo
+                    float x = -40.0f + radius * cos(angle);
+                    float z = radius * sin(angle);
+                    float y = 85.0f;
+
+                    model = glm::translate(model, glm::vec3(x, y, z));
                     model = glm::scale(model, glm::vec3(2.0f)); // a smaller cube
                     lightCubeShader.setMat4("model", model);
                     glDrawArrays(GL_TRIANGLES, 0, 36);
