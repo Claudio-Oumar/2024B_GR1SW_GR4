@@ -1,0 +1,11 @@
+Model Information:
+* title:	Simple Brick Fence
+* source:	https://sketchfab.com/3d-models/simple-brick-fence-9070b20a2a14415c8e6149d8559d4725
+* author:	Blender3D (https://sketchfab.com/Blender3D)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Simple Brick Fence" (https://sketchfab.com/3d-models/simple-brick-fence-9070b20a2a14415c8e6149d8559d4725) by Blender3D (https://sketchfab.com/Blender3D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
