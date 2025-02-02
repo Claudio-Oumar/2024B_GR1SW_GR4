@@ -1,17 +1,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 #include <learnopengl/shader.h>
 #include <learnopengl/camera.h>
 #include <learnopengl/model.h>
-
 #define STB_IMAGE_IMPLEMENTATION 
 #include <learnopengl/stb_image.h>
-
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -37,7 +33,6 @@ float lastFrame = 0.0f; // tiempo del ultimo frame
 // Mostrar modelo
 bool showModel = false;
 bool rKeyPressed = false;
-
 // Intensidad de la luz
 float spotLightIntensity = 1.0f;
 
@@ -46,14 +41,16 @@ glm::vec3 cameraPositions[] = {
     glm::vec3(20.0f, 10.0f, 20.0f),  // Esquina superior derecha
     glm::vec3(-20.0f, 10.0f, 20.0f), // Esquina superior izquierda
     glm::vec3(20.0f, 10.0f, -20.0f), // Esquina inferior derecha
-    glm::vec3(120.0f, 40.0f, -3.0f)   // Encima del modelo 5
+    glm::vec3(120.0f, 40.0f, -3.0f) ,  // Encima del modelo 5
+	(glm::vec3(11.0f, 1.7f, -3.0f)) // Posición de la cámara principla
 };
 
 glm::vec3 cameraFronts[] = {
     glm::normalize(glm::vec3(-1.0f, -0.5f, -1.0f)), // Mirando hacia el centro desde la esquina superior derecha
     glm::normalize(glm::vec3(1.0f, -0.5f, -1.0f)),  // Mirando hacia el centro desde la esquina superior izquierda
     glm::normalize(glm::vec3(-1.0f, -0.5f, 1.0f)),  // Mirando hacia el centro desde la esquina inferior derecha
-    glm::normalize(glm::vec3(-1.0f, 0.0f, 0.0f))    // Mirando hacia abajo desde encima del modelo 5
+    glm::normalize(glm::vec3(-1.0f, 0.0f, 0.0f)) ,   // Mirando hacia abajo desde encima del modelo 5
+	glm::normalize(glm::vec3(0.0f, 0.0f, -1.0f)) // Mirando hacia adelante desde la cámara principal
 };
 int main()
 {
@@ -101,22 +98,15 @@ int main()
     //-------------------------------------
     Shader ourShader("shaders/ExamenBimestral2-Grupo04.vs", "shaders/ExamenBimestral2-Grupo04.fs");
     // ------------------------------------
-	//Ruina inglesa
-    Model ourModel1("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model01/model01.obj");
-    // diablo aire
-    Model ourModel2("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj");
-    // antorcha
+    Model ourModel1("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model01/model01.obj"); //Ruina inglesa
+    Model ourModel2("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model02/model02.obj"); // diablo aire
     Model ourModel3("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/brick/brick.obj");
-    // personaje
-    Model ourModel5("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model11/model11.obj");
-    //farola
+    Model ourModel5("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model11/model11.obj");// personaje
     Model ourModel4("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/farola/farola.obj");
-    // piso
-    Model ourModel6("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model07/model07.obj");
+    Model ourModel6("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/model07/model07.obj");// piso
     Model ourModel7("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/inglesia/inglesia.obj");
     Model ourModel8("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/ruined/ruined.obj");
     Model ourModel9("C:/Users/claud/OneDrive/Documentos/Visual Studio 2022/OpenGL/OpenGL/model/demon/demon.obj");
-  
     // ------------------------------------------------------------------
     float vertices[] = {
         // positions          // normals           // texture coords
@@ -171,8 +161,7 @@ int main()
         glm::vec3(14.5f, 0.5f, 14.0f),
         glm::vec3(25.4f, 0.5f, 16.0f),
         glm::vec3(15.0f,  0.5f, -10.0f),
-		glm::vec3(6.0f,  0.5f, -15.0f),
-
+        glm::vec3(6.0f,  0.5f, -15.0f),
         // diablo aire
         glm::vec3(-3.0f, 16.0f, 5.0f),
         glm::vec3(-6.0f, 19.0f, 8.0f),
@@ -181,18 +170,16 @@ int main()
         glm::vec3(-6.0f, 19.0f, 2.0f),
         glm::vec3(-9.0f, 22.0f, -1.0f),
         glm::vec3(-12.0f, 25.0f, -4.0f),
-
         // muro
         glm::vec3(-8.0f, 2.0f, -20.0f),
         glm::vec3(0.0f, 2.0f, -20.0f),
         glm::vec3(8.0f, 2.0f, -20.0f),
         glm::vec3(16.0f, 2.0f, -20.0f),
-		glm::vec3(24.0f, 2.0f, -20.0f),
-		glm::vec3(32.0f, 2.0f, -20.0f),
-		glm::vec3(40.0f, 2.0f, -20.0f),
-		glm::vec3(48.0f, 2.0f, -20.0f),
-		glm::vec3(56.0f, 2.0f, -20.0f),
-
+        glm::vec3(24.0f, 2.0f, -20.0f),
+        glm::vec3(32.0f, 2.0f, -20.0f),
+        glm::vec3(40.0f, 2.0f, -20.0f),
+        glm::vec3(48.0f, 2.0f, -20.0f),
+        glm::vec3(56.0f, 2.0f, -20.0f),
         glm::vec3(-8.0f, 2.0f, 33.0f),
         glm::vec3(0.0f, 2.0f, 33.0f),
         glm::vec3(8.0f, 2.0f, 33.0f),
@@ -202,33 +189,36 @@ int main()
         glm::vec3(40.0f, 2.0f, 33.0f),
         glm::vec3(48.0f, 2.0f, 33.0f),
         glm::vec3(56.0f, 2.0f, 33.0f),
-        
         //FAROLA
-		glm::vec3(4.0f, 0.0f, 10.0f),
-		glm::vec3(12.0f, 0.0f, 10.0f),
-		glm::vec3(20.0f, 0.0f, 10.0f),
-		glm::vec3(28.0f, 0.0f, 10.0f),
-		glm::vec3(4.0f, 0.0f, -10.0f),
-		glm::vec3(12.0f, 0.0f, -10.0f),
-		glm::vec3(20.0f, 0.0f, -10.0f),
-		glm::vec3(28.0f, 0.0f, -10.0f)
+        glm::vec3(4.0f, 0.0f, 10.0f),
+        glm::vec3(12.0f, 0.0f, 10.0f),
+        glm::vec3(20.0f, 0.0f, 10.0f),
+        glm::vec3(28.0f, 0.0f, 10.0f),
+        glm::vec3(4.0f, 0.0f, -10.0f),
+        glm::vec3(12.0f, 0.0f, -10.0f),
+        glm::vec3(20.0f, 0.0f, -10.0f),
+        glm::vec3(28.0f, 0.0f, -10.0f)
     };
     // Posicion de las luces en la escena 
     glm::vec3 pointLightPositions[] = {
         glm::vec3(4.0f, 5.7f, 8.15f),
         glm::vec3(12.0f, 5.7f, 8.15f),
-		glm::vec3(20.0f, 5.7f, 8.15f),
-		glm::vec3(28.0f, 5.7f, 8.15f),
+        glm::vec3(20.0f, 5.7f, 8.15f),
+        glm::vec3(28.0f, 5.7f, 8.15f),
         glm::vec3(4.0f, 5.7f, -8.15f),
         glm::vec3(12.0f, 5.7f, -8.15f),
-		glm::vec3(20.0f, 5.7f, -8.15f),
-		glm::vec3(28.0f, 5.7f, -8.15f),
+        glm::vec3(20.0f, 5.7f, -8.15f),
+        glm::vec3(28.0f, 5.7f, -8.15f),
         // fuego demonio rojo
-		glm::vec3(-45.0f, 85.0f, -14.0f),
-		glm::vec3(-45.0f, 85.0f, 14.0f),
+        glm::vec3(-45.0f, 85.0f, -14.0f),
+        glm::vec3(-45.0f, 85.0f, 14.0f),
         // demonio aire
-		glm::vec3(-5.0f, 16.0f, 5.0f),
-		glm::vec3 ( -5.0f, 16.0f, -5.0f)
+        glm::vec3(-5.0f, 16.0f, 3.0f),
+        glm::vec3(-5.0f, 16.0f, -3.0f),
+		glm::vec3(-8.0f, 16.0f, 5.0f),
+		glm::vec3(-8.0f, 16.0f, -5.0f),
+		glm::vec3(-11.0f, 16.0f, 7.0f),
+		glm::vec3(-11.0f, 16.0f, -7.0f)
     };
 
     // first, configure the cube's VAO (and VBO)
@@ -244,7 +234,7 @@ int main()
     // normal attribute
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-   //texture attribute
+    //texture attribute
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
@@ -307,7 +297,7 @@ int main()
             ourShader.setVec3("dirLight.specular", 0.01f, 0.01f, 0.01f); // Luz especular muy tenue
         }
 
-        
+
         // point light 1 y 2
         for (unsigned int i = 0; i < 2; i++) {
             ourShader.setVec3("pointLights[" + std::to_string(i) + "].position", pointLightPositions[8 + i]);
@@ -318,24 +308,59 @@ int main()
             ourShader.setFloat("pointLights[" + std::to_string(i) + "].linear", 0.09f);
             ourShader.setFloat("pointLights[" + std::to_string(i) + "].quadratic", 0.032f);
         }
-
         // point light 3
         ourShader.setVec3("pointLights[2].position", pointLightPositions[10]);
-        ourShader.setVec3("pointLights[2].ambient", 0.2f, 0.0f, 0.2f); // Morado
-        ourShader.setVec3("pointLights[2].diffuse", 0.5f, 0.0f, 0.5f); // Morado
-        ourShader.setVec3("pointLights[2].specular", 0.7f, 0.0f, 0.7f); // Morado
+        ourShader.setVec3("pointLights[2].ambient", 0.4f, 0.0f, 0.4f); // Morado
+        ourShader.setVec3("pointLights[2].diffuse", 1.0f, 0.0f, 1.0f); // Morado
+        ourShader.setVec3("pointLights[2].specular", 1.4f, 0.0f, 1.4f); // Morado
         ourShader.setFloat("pointLights[2].constant", 1.0f);
         ourShader.setFloat("pointLights[2].linear", 0.09);
         ourShader.setFloat("pointLights[2].quadratic", 0.032);
 
         // point light 4
         ourShader.setVec3("pointLights[3].position", pointLightPositions[11]);
-        ourShader.setVec3("pointLights[3].ambient", 0.0f, 0.2f, 0.0f); // Verde
-        ourShader.setVec3("pointLights[3].diffuse", 0.0f, 0.5f, 0.0f); // Verde 
-        ourShader.setVec3("pointLights[3].specular", 0.0f, 0.7f, 0.0f); // Verde 
+        ourShader.setVec3("pointLights[3].ambient", 0.0f, 0.4f, 0.0f); // Verde
+        ourShader.setVec3("pointLights[3].diffuse", 0.0f, 1.0f, 0.0f); // Verde 
+        ourShader.setVec3("pointLights[3].specular", 0.0f, 1.4f, 0.0f); // Verde 
         ourShader.setFloat("pointLights[3].constant", 1.0f);
         ourShader.setFloat("pointLights[3].linear", 0.09);
         ourShader.setFloat("pointLights[3].quadratic", 0.032);
+
+        // point light 5
+        ourShader.setVec3("pointLights[4].position", pointLightPositions[12]);
+        ourShader.setVec3("pointLights[4].ambient", 0.0f, 0.0f, 0.4f); // Azul
+        ourShader.setVec3("pointLights[4].diffuse", 0.0f, 0.0f, 1.0f); // Azul
+        ourShader.setVec3("pointLights[4].specular", 0.0f, 0.0f, 1.4f); // Azul
+        ourShader.setFloat("pointLights[4].constant", 1.0f);
+        ourShader.setFloat("pointLights[4].linear", 0.09);
+        ourShader.setFloat("pointLights[4].quadratic", 0.032);
+
+        // point light 6
+        ourShader.setVec3("pointLights[5].position", pointLightPositions[13]);
+        ourShader.setVec3("pointLights[5].ambient", 0.4f, 0.4f, 0.0f); // Amarillo
+        ourShader.setVec3("pointLights[5].diffuse", 1.0f, 1.0f, 0.0f); // Amarillo
+        ourShader.setVec3("pointLights[5].specular", 1.4f, 1.4f, 0.0f); // Amarillo
+        ourShader.setFloat("pointLights[5].constant", 1.0f);
+        ourShader.setFloat("pointLights[5].linear", 0.09);
+        ourShader.setFloat("pointLights[5].quadratic", 0.032);
+
+        // point light 7
+        ourShader.setVec3("pointLights[6].position", pointLightPositions[14]);
+        ourShader.setVec3("pointLights[6].ambient", 0.0f, 0.4f, 0.4f); // Cian
+        ourShader.setVec3("pointLights[6].diffuse", 0.0f, 1.0f, 1.0f); // Cian
+        ourShader.setVec3("pointLights[6].specular", 0.0f, 1.4f, 1.4f); // Cian
+        ourShader.setFloat("pointLights[6].constant", 1.0f);
+        ourShader.setFloat("pointLights[6].linear", 0.09);
+        ourShader.setFloat("pointLights[6].quadratic", 0.032);
+
+        // point light 8
+        ourShader.setVec3("pointLights[7].position", pointLightPositions[15]);
+        ourShader.setVec3("pointLights[7].ambient", 0.4f, 0.2f, 0.0f); // Naranja
+        ourShader.setVec3("pointLights[7].diffuse", 1.6f, 0.8f, 0.0f); // Naranja
+        ourShader.setVec3("pointLights[7].specular", 2.0f, 1.0f, 0.0f); // Naranja
+        ourShader.setFloat("pointLights[7].constant", 1.0f);
+        ourShader.setFloat("pointLights[7].linear", 0.09);
+        ourShader.setFloat("pointLights[7].quadratic", 0.032);
 
         // Configura las propiedades de las luces de foco en el shader
         if (showModel) {
@@ -354,7 +379,7 @@ int main()
             }
         }
         else {
-            for (unsigned int i = 0; i < 8; i++) { 
+            for (unsigned int i = 0; i < 8; i++) {
                 std::string number = std::to_string(i);
                 ourShader.setVec3("spotLights[" + number + "].position", pointLightPositions[i]);
                 ourShader.setVec3("spotLights[" + number + "].direction", glm::vec3(0.0f, -1.0f, 0.0f)); // Dirección del foco
@@ -432,7 +457,6 @@ int main()
             ourShader.setMat4("model", model4);
             ourModel4.Draw(ourShader);
         }
-
         // render the fifth model
         glm::mat4 model5 = glm::mat4(1.0f);
         model5 = glm::translate(model5, glm::vec3(10.0f, 0.0f, -3.0f));
@@ -528,14 +552,13 @@ int main()
                 glDrawArrays(GL_TRIANGLES, 0, 36);
             }
         }
-
-		// render the light cube 
+        // render the light cube 
         lightCubeShader.use();
         lightCubeShader.setMat4("projection", projection);
         lightCubeShader.setMat4("view", view);
         glBindVertexArray(lightCubeVAO);
-		//  cubos farolas
-		if (showModel) {
+        //  cubos farolas
+        if (showModel) {
             for (unsigned int i = 0; i < 8; i++)
             {
                 lightCubeShader.setVec3("lightColor", 1.0f, 0.0f, 0.0f); //colo  rojo
@@ -545,19 +568,19 @@ int main()
                 lightCubeShader.setMat4("model", model);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
             }
-		}
+        }
         else
-		{
-			for (unsigned int i = 0; i < 8; i++)
-			{
-				lightCubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f); // Color blanco
-				model = glm::mat4(1.0f);
-				model = glm::translate(model, pointLightPositions[i]);
-				model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-				lightCubeShader.setMat4("model", model);
-				glDrawArrays(GL_TRIANGLES, 0, 36);
-			}
-		}
+        {
+            for (unsigned int i = 0; i < 8; i++)
+            {
+                lightCubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f); // Color blanco
+                model = glm::mat4(1.0f);
+                model = glm::translate(model, pointLightPositions[i]);
+                model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+                lightCubeShader.setMat4("model", model);
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+            }
+        }
         // demonio rojo cubos
         if (showModel) {
             // Verifica si la escala es 40
@@ -586,25 +609,31 @@ int main()
             }
         }
         //Demonio aire
-        for (unsigned int i = 10; i < 13; i++)
+        glm::vec3 airecolors[] = {
+        glm::vec3(0.4f, 0.0f, 0.4f), // Morado
+        glm::vec3(0.0f, 0.4f, 0.0f), // Verde
+        glm::vec3(0.0f, 0.0f, 0.4f), // Azul
+        glm::vec3(0.4f, 0.4f, 0.0f), // Amarillo
+        glm::vec3(0.0f, 0.4f, 0.4f), // Cian
+        glm::vec3(0.4f, 0.2f, 0.0f)  // Naranja
+        };
+        for (unsigned int i = 10; i < 16; i++)
         {
-            lightCubeShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f); // Color blanco
+            lightCubeShader.setVec3("lightColor", airecolors[i - 10]); 
             model = glm::mat4(1.0f);
             // Movimiento simple en el eje Y 
             float movementScale = 5.0f; // tamaño del movimiento
             pointLightPositions[i].y = 20.0f + movementScale * sin(glfwGetTime());
             model = glm::translate(model, pointLightPositions[i]);
-            model = glm::scale(model, glm::vec3(0.1f)); 
+            model = glm::scale(model, glm::vec3(0.1f));
             lightCubeShader.setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &cubeVAO);
@@ -656,7 +685,6 @@ void processInput(GLFWwindow* window)
         spotLightIntensity -= 0.1f;
         if (spotLightIntensity < 0.0f) spotLightIntensity = 0.0f; // Asegurarse de que la intensidad no sea negativa
     }
-
     // Cambiar la vista de la cámara al presionar las teclas del 1 al 4
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
         std::cout << "Tecla 1 presionada" << std::endl;
@@ -678,27 +706,24 @@ void processInput(GLFWwindow* window)
         camera.Position = cameraPositions[3];
         camera.Front = cameraFronts[3];
     }
-
-
-	
+	if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+		std::cout << "Tecla 5 presionada" << std::endl;
+		camera.Position = cameraPositions[4];
+		camera.Front = cameraFronts[4];
+	}
     // Limitar la posición Y de la cámara para que no pase por debajo de 0.0
     if (camera.Position.y < 0.2f)
     {
         camera.Position.y = 0.2f;
     }
 }
-
-// glfw: siempre que el tamaño de la ventana cambie (por el sistema operativo o el redimensionamiento del usuario), se ejecuta esta función de devolución de llamada
 // ---------------------------------------------------------------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // Asegura que la vista se ajuste a las nuevas dimensiones de la ventana; observa que el ancho y la altura serán significativamente mayores en pantallas Retina
     glViewport(0, 0, width, height);
 }
-
-// glfw: siempre que el ratón se mueva, se llama a esta función de devolución de llamada
 // -------------------------------------------------------
-// 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
     // Si es la primera vez que el ratón se mueve, guarda la posición inicial
@@ -708,7 +733,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
         lastY = ypos;
         firstMouse = false; // Asegura que no se ejecute esta sección más de una vez
     }
-
     // Calcula el desplazamiento del ratón en las direcciones X y Y
     float xoffset = xpos - lastX;
     float yoffset = lastY - ypos; // Y está invertido ya que las coordenadas Y aumentan hacia abajo en la ventana
@@ -720,16 +744,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     // Procesa el movimiento del ratón para actualizar la orientación de la cámara
     camera.ProcessMouseMovement(xoffset, yoffset);
 }
-
-// glfw: cada vez que la rueda del ratón se desplaza, se llama a esta función de devolución de llamada
 // ----------------------------------------------------------------------
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     // Procesa el desplazamiento del ratón para hacer zoom en la cámara
     camera.ProcessMouseScroll(yoffset);
 }
-
-
 // Función de utilidad para cargar una textura 2D desde un archivo
 // ---------------------------------------------------
 unsigned int loadTexture(char const* path)
@@ -770,6 +790,5 @@ unsigned int loadTexture(char const* path)
         std::cout << "Texture failed to load at path: " << path << std::endl;
         stbi_image_free(data); // Libera la memoria de la imagen, aunque haya fallado
     }
-
     return textureID; // Devuelve el identificador de la textura cargada
 }
